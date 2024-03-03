@@ -1,0 +1,15 @@
+D:\Courses\Test\TestApp\bin\x86\Release\TestApp.exe.config
+D:\Courses\Test\TestApp\bin\x86\Release\TestApp.exe.manifest
+D:\Courses\Test\TestApp\bin\x86\Release\TestApp.application
+D:\Courses\Test\TestApp\bin\x86\Release\TestApp.exe
+D:\Courses\Test\TestApp\bin\x86\Release\TestApp.pdb
+D:\Courses\Test\TestApp\obj\x86\Release\TestApp.csproj.AssemblyReference.cache
+D:\Courses\Test\TestApp\obj\x86\Release\TestApp.Directory.resources
+D:\Courses\Test\TestApp\obj\x86\Release\TestApp.MainForm.resources
+D:\Courses\Test\TestApp\obj\x86\Release\TestApp.Properties.Resources.resources
+D:\Courses\Test\TestApp\obj\x86\Release\TestApp.csproj.GenerateResource.cache
+D:\Courses\Test\TestApp\obj\x86\Release\TestApp.csproj.CoreCompileInputs.cache
+D:\Courses\Test\TestApp\obj\x86\Release\TestApp.exe.manifest
+D:\Courses\Test\TestApp\obj\x86\Release\TestApp.application
+D:\Courses\Test\TestApp\obj\x86\Release\TestApp.exe
+D:\Courses\Test\TestApp\obj\x86\Release\TestApp.pdb

@@ -12,7 +12,7 @@ namespace TestApp
         private Rectangle originalFormRectangle;
         private List<Rectangle> originalItemRectangles = new List<Rectangle>();
         private Control[] controls = new Control[10];
-        private string _savePath = @"C:\temp\MyDataset.xml";
+        private string _savePath = AppDomain.CurrentDomain.BaseDirectory + @"\MyDataset.xml";
         private Dictionary<string, string> _directoryDictionary;
 
         public MainForm()
@@ -28,11 +28,12 @@ namespace TestApp
         {
             _directoryDictionary = new Dictionary<string, string>();
             DataSet dataSet = new DataSet();
-            try
+
+            if (File.Exists(_savePath))
             {
-                if (File.Exists(_savePath))
+                dataSet.ReadXml(_savePath);
+                if (dataSet.Tables.Count > 0)
                 {
-                    dataSet.ReadXml(_savePath);
                     DataTable dataTable = dataSet.Tables[0];
                     foreach (DataRow row in dataTable.Rows)
                     {
@@ -41,23 +42,8 @@ namespace TestApp
                         _directoryDictionary.Add(Name, ID);
                     }
                 }
-                    
             }
-            catch
-            {
-                if (File.Exists(@"MyDataset.xml"))
-                {
-                    dataSet.ReadXml(@"MyDataset.xml");
-                    DataTable dataTable = dataSet.Tables[0];
-                    foreach (DataRow row in dataTable.Rows)
-                    {
-                        string Name = row.ItemArray[1].ToString();
-                        string ID = row.ItemArray[0].ToString();
-                        _directoryDictionary.Add(Name, ID);
-                    }
-                }
-                 
-            }
+
             originalFormRectangle = new Rectangle(this.Location.X, this.Location.Y, this.Size.Width, this.Size.Height);
 
             foreach (Control c in controls)
@@ -180,12 +166,22 @@ namespace TestApp
         private void UpdateDirectory(object sender, EventArgs e)
         {
             DataSet dataSet = new DataSet();
-            dataSet.ReadXml(_savePath);
-            DataTable dataTable = dataSet.Tables[0];
-            _directoryDictionary.Clear();
-            foreach (DataRow row in dataTable.Rows)
+            if (File.Exists(_savePath))
             {
-                _directoryDictionary.Add(row.ItemArray[1].ToString(), row.ItemArray[0].ToString());
+                dataSet.ReadXml(_savePath);
+                if (dataSet.Tables.Count > 0)
+                {
+                    DataTable dataTable = dataSet.Tables[0];
+                    _directoryDictionary.Clear();
+                    foreach (DataRow row in dataTable.Rows)
+                    {
+                        _directoryDictionary.Add(row.ItemArray[1].ToString(), row.ItemArray[0].ToString());
+                    }
+                }
+                else
+                {
+                    _directoryDictionary.Clear();
+                }
             }
         }
     }

@@ -15,7 +15,7 @@ namespace TestApp
         private Control[] controls = new Control[9];
         private DataTable _dataTable = new DataTable();
         public event EventHandler DirectoryChanged;
-        private string _savePath = @"C:\temp\MyDataset.xml";
+        private string _savePath = AppDomain.CurrentDomain.BaseDirectory + @"\MyDataset.xml";
 
         public Directory()
         {
@@ -30,26 +30,16 @@ namespace TestApp
         private void Directory_Load(object sender, EventArgs e)
         {
             DataSet dataSet = new DataSet();
-            try
+
+            if (File.Exists(_savePath))
             {
-                if(File.Exists(_savePath))
+                dataSet.ReadXml(_savePath);
+                if (dataSet.Tables.Count > 0)
                 {
-                    dataSet.ReadXml(_savePath);
                     _dataTable = dataSet.Tables[0];
                     DirectoryDataGridView.Columns.Clear();
                     DirectoryDataGridView.DataSource = _dataTable;
                 }
-            }
-            catch 
-            {
-                if (File.Exists(@"MyDataset.xml"))
-                {
-                    dataSet.ReadXml(@"MyDataset.xml");
-                    _dataTable = dataSet.Tables[0];
-                    DirectoryDataGridView.Columns.Clear();
-                    DirectoryDataGridView.DataSource = _dataTable;
-                }
-                    
             }
 
             originalFormRectangle = new Rectangle(this.Location.X, this.Location.Y, this.Size.Width, this.Size.Height);
@@ -139,19 +129,8 @@ namespace TestApp
             }
             DataSet dataSet = new DataSet();
             dataSet.Tables.Add(dt);
-
-            try
-            {
-                dataSet.WriteXml(_savePath);
-            }
-            catch
-            {
-                dataSet.WriteXml(@"MyDataset.xml");
-            }
-            finally
-            {
-                DirectoryChanged?.Invoke(sender, e);
-            }
+            dataSet.WriteXml(_savePath);
+            DirectoryChanged?.Invoke(sender, e);
         }
 
         private bool IsHEX(string hex24)
